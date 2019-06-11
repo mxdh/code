@@ -1,0 +1,116 @@
+{
+	"folders": [
+		{
+			"path": "Code"
+		},
+		{
+			"path": "Pascal"
+		},
+		{
+			"path": "Python"
+		},
+		{
+			"path": "template",
+			"name": "模板"
+		},
+		{
+			"path": "E:\\mxdh\\mxdh",
+			"name": "博客"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"algorithm": "cpp",
+			"iostream": "cpp",
+			"ostream": "cpp",
+			"istream": "cpp",
+			"cstdioo": "cpp",
+			"stdio.h": "c",
+			"cstring": "cpp",
+			"ssp.h": "c",
+			"array": "cpp",
+			"atomic": "cpp",
+			"*.tcc": "cpp",
+			"bitset": "cpp",
+			"cctype": "cpp",
+			"cfenv": "cpp",
+			"chrono": "cpp",
+			"cinttypes": "cpp",
+			"clocale": "cpp",
+			"cmath": "cpp",
+			"codecvt": "cpp",
+			"complex": "cpp",
+			"condition_variable": "cpp",
+			"csetjmp": "cpp",
+			"csignal": "cpp",
+			"cstdarg": "cpp",
+			"cstddef": "cpp",
+			"cstdint": "cpp",
+			"ctime": "cpp",
+			"cuchar": "cpp",
+			"cwchar": "cpp",
+			"cwctype": "cpp",
+			"deque": "cpp",
+			"forward_list": "cpp",
+			"list": "cpp",
+			"unordered_map": "cpp",
+			"unordered_set": "cpp",
+			"vector": "cpp",
+			"exception": "cpp",
+			"fstream": "cpp",
+			"functional": "cpp",
+			"future": "cpp",
+			"initializer_list": "cpp",
+			"iomanip": "cpp",
+			"iosfwd": "cpp",
+			"limits": "cpp",
+			"memory": "cpp",
+			"mutex": "cpp",
+			"new": "cpp",
+			"numeric": "cpp",
+			"ratio": "cpp",
+			"scoped_allocator": "cpp",
+			"shared_mutex": "cpp",
+			"sstream": "cpp",
+			"stdexcept": "cpp",
+			"streambuf": "cpp",
+			"system_error": "cpp",
+			"thread": "cpp",
+			"type_traits": "cpp",
+			"tuple": "cpp",
+			"typeindex": "cpp",
+			"typeinfo": "cpp",
+			"utility": "cpp",
+			"valarray": "cpp",
+			"stddef.h": "c",
+			"_mingw.h": "c",
+			"w32api.h": "c",
+			"types.h": "c",
+			"charconv": "cpp",
+			"optional": "cpp",
+			"string_view": "cpp",
+			"_mingw_off_t.h": "c",
+			"cerrno": "cpp",
+			"cfloat": "cpp"
+		},
+		"pascal.codeNavigation": "file",
+		"git.autofetch": true,
+		"editor.formatOnSave": true,
+		"editor.tabCompletion": "on",
+		"editor.quickSuggestions": {
+			"other": true,
+			"comments": true,
+			"strings": false
+		},
+		"files.defaultLanguage": "cpp",
+		"pascal.formatter.engineParameters": "E:/code/Pascal/.vscode/ptop.cfg",
+		"python.pythonPath": "C:\\Users\\JXY\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+		"disasexpl.associations": {
+			"**/*.c": "${fileDirname}/${fileBasenameNoExtension}1.S",
+			"**/*.cpp": "${fileDirname}/${fileBasenameNoExtension}1.S"
+		},
+		"C_Cpp.clang_format_sortIncludes": true
+	}
+}
