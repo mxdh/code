@@ -93,7 +93,9 @@
 			"string_view": "cpp",
 			"_mingw_off_t.h": "c",
 			"cerrno": "cpp",
-			"cfloat": "cpp"
+			"cfloat": "cpp",
+			"xmemory": "cpp",
+			"xmemory0": "cpp"
 		},
 		"pascal.codeNavigation": "file",
 		"git.autofetch": true,

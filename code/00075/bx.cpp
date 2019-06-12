@@ -4,6 +4,8 @@
 using std::min;
 
 int main() {
+    freopen("bx.in", "r", stdin);
+    freopen("bx.out", "w", stdout);
     long long s, t, n;
     while (scanf("%lld%lld%lld", &s, &t, &n) == 3) {
         long long tmp = s - (n - 1), ans1 = (n - 1) * 3, ans2 = n;

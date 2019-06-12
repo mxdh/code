@@ -10,3 +10,4 @@
 Cpp/.vscode/ipch/*
 python/.mypy_cache/*
 code/.vscode/ipch/*
+template/.vscode/ipch/*
