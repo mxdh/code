@@ -22,5 +22,5 @@ inline int GetNum(T &num) {
     }
     for (; isdigit(c); c = getchar()) num = (num << 1) + (num << 3) + (c ^ 48);
     num = p ? -num : num;
-    return 0;
+    return 1;
 }

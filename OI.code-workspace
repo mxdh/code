@@ -99,7 +99,6 @@
 		},
 		"pascal.codeNavigation": "file",
 		"git.autofetch": true,
-		"editor.formatOnSave": true,
 		"editor.tabCompletion": "on",
 		"editor.quickSuggestions": {
 			"other": true,
@@ -113,6 +112,7 @@
 			"**/*.c": "${fileDirname}/${fileBasenameNoExtension}1.S",
 			"**/*.cpp": "${fileDirname}/${fileBasenameNoExtension}1.S"
 		},
-		"C_Cpp.clang_format_sortIncludes": true
+		"C_Cpp.clang_format_sortIncludes": true,
+		"editor.formatOnSave": true
 	}
 }
