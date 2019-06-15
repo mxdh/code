@@ -11,7 +11,7 @@
             "program": "cmd",
             "args": [
                 "/c",
-                "tmp.exe",
+                "${fileBasenameNoExtension}.exe",
                 "&echo.",
                 "&pause"
             ],
@@ -27,7 +27,7 @@
             "program": "cmd",
             "args": [
                 "/c",
-                "tmp.exe",
+                "${fileBasenameNoExtension}.exe",
                 "&echo.",
                 "&pause"
             ],
@@ -41,7 +41,7 @@
             "name": "(gdb)(g++) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/tmp.exe",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
