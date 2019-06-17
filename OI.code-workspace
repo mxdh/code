@@ -113,6 +113,13 @@
 			"**/*.cpp": "${fileDirname}/${fileBasenameNoExtension}1.S"
 		},
 		"C_Cpp.clang_format_sortIncludes": true,
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"files.exclude": {
+			"**/.classpath": true,
+			"**/.project": true,
+			"**/.settings": true,
+			"**/.factorypath": true
+		},
+		"maven.view": "flat"
 	}
 }
