@@ -30,7 +30,7 @@ int main() {
         int ss = 0;
         for (int i = 1; i < k; ++i)
             if (cnt[i] > cnt[ss]) ss = i;
-
+        if (n>4)
         for (int i = 1; i < n - 1; ++i)
             if (h[a[r[i]] - a[r[i - 1]]] != ss &&
                 h[a[r[i + 1]] - a[r[i]]] != ss) {
@@ -45,6 +45,9 @@ int main() {
                     puts("-1");
                 return 0;
             }
+        else {
+            
+        }
         if (k == 2 && h[a[r[1]] - a[r[0]]] != ss) {
             printf("%d", r[0] + 1);
             // printf("%d\n", h[a[r[1] - a[r[0]]]]);
