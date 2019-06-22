@@ -1,3 +1,4 @@
+// AC
 #include <algorithm>
 #include <cstdio>
 #include <map>
@@ -25,28 +26,46 @@ int main() {
         ++cnt[h[tmp]];
         // printf("%d %d\n", tmp, h[tmp]);
     }
-
+    if (k == 1) {
+        printf("%d", r[0] + 1);
+        return 0;
+    }
     if (k <= 3) {
         int ss = 0;
         for (int i = 1; i < k; ++i)
             if (cnt[i] > cnt[ss]) ss = i;
-        if (n>4)
-        for (int i = 1; i < n - 1; ++i)
-            if (h[a[r[i]] - a[r[i - 1]]] != ss &&
-                h[a[r[i + 1]] - a[r[i]]] != ss) {
-                if (((a[r[i]] - a[r[i - 1]] != a[r[i + 1]] - a[r[i]] &&
-                      k == 3) ||
-                     (a[r[i]] - a[r[i - 1]] == a[r[i + 1]] - a[r[i]] &&
-                      k == 2)) &&
-                    (h.count(a[r[i + 1]] - a[r[i - 1]])) &&
-                    (h[a[r[i + 1]] - a[r[i - 1]]] == ss))
-                    printf("%d", r[i] + 1);
+        if (n > 3) {
+            if (cnt[ss] == 1) {
+                for (int i = 1; i < n - 1; ++i) {
+                    int tmp = a[r[i + 1]] - a[r[i - 1]];
+                    if (tmp != a[r[i]] - a[r[i - 1]] &&
+                        tmp != a[r[i + 1]] - a[r[i]] && h.count(tmp)) {
+                        printf("%d", r[i] + 1);
+                        return 0;
+                    }
+                }
+            } else {
+                if (k == 2)
+                    for (int i = 1; i < n - 1; ++i) {
+                        int tmp = a[r[i + 1]] - a[r[i - 1]];
+                        if ((h[a[r[i]] - a[r[i - 1]]] != ss ||
+                             h[a[r[i + 1]] - a[r[i]]] != ss) &&
+                            h.count(tmp) && h[tmp] == ss) {
+                            printf("%d", r[i] + 1);
+                            return 0;
+                        }
+                    }
                 else
-                    puts("-1");
-                return 0;
+                    for (int i = 1; i < n - 1; ++i) {
+                        int tmp = a[r[i + 1]] - a[r[i - 1]];
+                        if (h[a[r[i]] - a[r[i - 1]]] != ss &&
+                            h[a[r[i + 1]] - a[r[i]]] != ss && h.count(tmp) &&
+                            h[tmp] == ss) {
+                            printf("%d", r[i] + 1);
+                            return 0;
+                        }
+                    }
             }
-        else {
-            
         }
         if (k == 2 && h[a[r[1]] - a[r[0]]] != ss) {
             printf("%d", r[0] + 1);
@@ -59,10 +78,6 @@ int main() {
             // puts("&&");
             return 0;
         }
-    }
-    if (k == 1) {
-        printf("%d", r[0] + 1);
-        return 0;
     }
     puts("-1");
     return 0;
