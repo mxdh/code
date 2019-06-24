@@ -1,3 +1,4 @@
+// AC
 #include <cstdio>
 
 const int LEN = 1000000;
