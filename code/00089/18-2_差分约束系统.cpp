@@ -1,11 +1,11 @@
-//VOJ POJ 1275
+//AC
 #include <cstdio>
 #include <cstring>
 #include <queue>
 
 using namespace std;
 
-const int T=24,L=8; //T:轮班时长 L:工作时长
+const int T=24,L=8; //T:杞彮鏃堕暱 L:宸ヤ綔鏃堕暱
 int a[T],f[T],g[T+1][T+1],d[T+1],cnt[T+1];
 bool vis[T+1];
 

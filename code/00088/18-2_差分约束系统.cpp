@@ -1,4 +1,4 @@
-//VOJ POJ 3169
+//AC
 #include <cstdio>
 #include <cstring>
 
