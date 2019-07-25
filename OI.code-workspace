@@ -1,7 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "Code"
+			"path": "code",
+			"name": "Code"
 		},
 		{
 			"path": "Pascal"
