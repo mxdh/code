@@ -1,3 +1,4 @@
+// AC
 #include <cctype>
 #include <cstdio>
 
