@@ -13,7 +13,9 @@
                 "-std=c++98",
                 "-Wall",
                 "-Wextra",
-                "-Wpedantic"
+                "-Wpedantic",
+                "-static-libgcc",
+                "'-Wl,--stack=123456789'"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
