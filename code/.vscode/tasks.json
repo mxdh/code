@@ -3,95 +3,62 @@
     "tasks": [
         {
             "type": "shell",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "label": "g++.exe build active file",
-            "command": "C:/Compiler/MinGW64/bin/g++.exe",
+            "command": "C:\\Compiler\\MinGW64\\bin\\g++.exe",
             "args": [
+                "-g",
+                "${relativeFile}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-std=c++98",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "type": "shell",
+            "label": "g++asm",
+            "command": "C:\\Compiler\\MinGW64\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${relativeFile}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.S",
                 "-std=c++98",
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic",
-                "-static-libgcc",
-                "-g",
-                "${fileBasename}",
-                "-o",
-                "${fileBasenameNoExtension}.exe"
+                "-S"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "type": "shell",
+            "label": "clang++.exe build active file",
+            "command": "C:\\Compiler\\LLVM\\bin\\clang++.exe",
+            "args": [
+                "-g",
+                "${relativeFile}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-std=c++98",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": {
                 "base": "$gcc",
-                "fileLocation": [
-                    "relative",
-                    "${fileDirname}"
-                ]
-            }
-        },
-        {
-            "type": "shell",
-            "group": "build",
-            "label": "g++asm",
-            "command": "cmd",
-            "args": [
-                "/c",
-                "g++",
-                "-std=c++98",
-                "-g",
-                "-S",
-                "-Wall",
-                "-Wextra",
-                "-Wpedantic",
-                "${fileBasename}",
-                "-o",
-                "${fileBasenameNoExtension}.S"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": {
-                "owner": "cpp",
-                "fileLocation": [
-                    "relative",
-                    "${fileDirname}"
-                ],
-                "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                }
-            }
-        },
-        {
-            "type": "shell",
-            "group": "build",
-            "label": "clang++asm",
-            "command": "clang++",
-            "args": [
-                "-std=c++98",
-                "-S",
-                "-Wall",
-                "-Wextra",
-                "-Wpedantic",
-                "${fileBasename}",
-                "-o",
-                "${fileBasenameNoExtension}.S"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": {
-                "owner": "cpp",
-                "fileLocation": [
-                    "relative",
-                    "${fileDirname}"
-                ],
                 "pattern": {
                     "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error|note):\\s+(.*)$",
                     "file": 1,
@@ -104,19 +71,32 @@
         },
         {
             "type": "shell",
-            "label": "clang.exe build active file",
-            "command": "C:\\Compiler\\LLVM\\bin\\clang.exe",
+            "label": "clang++asm",
+            "command": "C:\\Compiler\\LLVM\\bin\\clang++.exe",
             "args": [
                 "-g",
-                "${file}",
+                "${relativeFile}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-std=c++98",
                 "-Wall",
                 "-Wextra",
-                "-Wpedantic"
+                "-Wpedantic",
+                "-S"
             ],
             "options": {
-                "cwd": "C:\\Compiler\\LLVM\\bin"
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error|note):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
             }
         }
     ]
