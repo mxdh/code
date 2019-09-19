@@ -8,6 +8,9 @@
 			"path": "Pascal"
 		},
 		{
+			"path": "Python"
+		},
+		{
 			"path": "template",
 			"name": "模板"
 		},
@@ -104,9 +107,16 @@
 		},
 		"pascal.codeNavigation": "file",
 		"git.autofetch": true,
+		"editor.quickSuggestions": {
+			"other": true,
+			"comments": true,
+			"strings": false
+		},
 		"files.defaultLanguage": "cpp",
 		"pascal.formatter.engineParameters": "E:/code/Pascal/.vscode/ptop.cfg",
+		"python.pythonPath": "C:\\Users\\JXY\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
 		"C_Cpp.clang_format_sortIncludes": true,
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/"
 	}
 }

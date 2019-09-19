@@ -1,11 +1,11 @@
-//VOJ 2018Äêº®¼ÙÍøÈüµÚËÄ³¡ H
+//VOJ 2018å¹´å¯’å‡ç½‘èµ›ç¬¬å››åœº H
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
 
 using namespace std;
 
-const int N=100,S1=100,S2=100;//N:¼¼ÄÜÊı S1:ÑªÁ¿ S2:Ä§·¨Öµ 
+const int N=100,S1=100,S2=100;//N:æŠ€èƒ½æ•° S1:è¡€é‡ S2:é­”æ³•å€¼ 
 int a[N],b[N],f[2*S1+1][S2+1];
 
 int main() {
