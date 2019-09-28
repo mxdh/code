@@ -42,20 +42,20 @@ class segment_tree {
             int l = k->l, r = k->r;
             _prepare(k->ls, l, (l + r) >> 1);
             _prepare(k->rs, ((l + r) >> 1) + 1, r);
-            push_down(&k->val, &k->ls->val, &k->rs->val, r - l + 1);
+            push_down(&(k->val), &(k->ls->val), &(k->rs->val), r - l + 1);
         }
     }
 
     void _push_up(_node *k) {
-        k->val = merge(k->ls != NULL ? &k->ls->val : NULL,
-                       k->rs != NULL ? &k->rs->val : NULL);
+        k->val = merge(k->ls != NULL ? &(k->ls->val) : NULL,
+                       k->rs != NULL ? &(k->rs->val) : NULL);
     }
 
     void _modify(_node *k, int l, int r, void (*op)(_Node *, _Tp, int),
                  _Tp val) {
         int l_ = k->l, r_ = k->r;
         if (l_ >= l && r_ <= r) {
-            op(&k->val, val, r_ - l_ + 1);
+            op(&(k->val), val, r_ - l_ + 1);
             return;
         }
         int mid = (l_ + r_) >> 1;
