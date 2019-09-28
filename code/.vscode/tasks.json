@@ -4,7 +4,7 @@
         {
             "type": "shell",
             "label": "g++.exe build active file",
-            "command": "C:\\Compiler\\MinGW\\bin\\g++.exe",
+            "command": "C:\\Compiler\\MinGW64\\bin\\g++.exe",
             "args": [
                 "-g",
                 "${relativeFile}",
@@ -24,7 +24,7 @@
         {
             "type": "shell",
             "label": "g++asm",
-            "command": "C:\\Compiler\\MinGW\\bin\\g++.exe",
+            "command": "C:\\Compiler\\MinGW64\\bin\\g++.exe",
             "args": [
                 "-g",
                 "${relativeFile}",

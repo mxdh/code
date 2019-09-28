@@ -100,7 +100,8 @@
 			"random": "cpp",
 			"regex": "cpp",
 			"set": "cpp",
-			"string": "cpp"
+			"string": "cpp",
+			"queue": "cpp"
 		},
 		"pascal.codeNavigation": "file",
 		"git.autofetch": true,
