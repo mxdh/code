@@ -74,17 +74,16 @@ class segment_tree {
     _Node _query(_node *k, int l, int r) {
         int l_ = k->l, r_ = k->r;
         if (l_ >= l && r_ <= r) return k->val;
-        _Node *a, *b;
+        _Node a, b;
         _push_down(k);
         if ((l_ + r_) >> 1 >= l && k->ls != NULL)
-            a = new _Node(_query(k->ls, l, r));
-        if ((l_ + r_) >> 1 < r && k->rs != NULL)
-            b = new _Node(_query(k->rs, l, r));
-        return merge(a, b);
+            a = _Node(_query(k->ls, l, r));
+        if ((l_ + r_) >> 1 < r && k->rs != NULL) b = _Node(_query(k->rs, l, r));
+        return merge(&a, &b);
     }
 
   public:
-    segment_tree(int l = 0, int r = INF) { _prepare(root, l, r); }
+    segment_tree(int l = 0, int r = INF) : root(new _node(l, r)) {}
 
     void modify(int l, int r, void (*op)(_Node *, _Tp, int), int val) {
         _modify(root, l, r, op, val);
@@ -127,9 +126,13 @@ struct cover {
     LL operator()(const node &val) const { return val.val; }
 };
 
+struct check {
+    bool operator()(const node &val) const { return val.tag; }
+};
+
 int main() {
     int n, m;
-    segment_tree<LL, node, merge, push_down, cover> seg(1, INF);
+    segment_tree<LL, node, merge, push_down, cover, check> seg(1, INF);
     cin >> n >> m;
     for (int i = 0; i < n; ++i) {
         int a, b;
