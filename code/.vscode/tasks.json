@@ -46,7 +46,8 @@
             "label": "clang++.exe build active file",
             "command": "C:\\Compiler\\LLVM\\bin\\clang++.exe",
             "args": [
-                "-target x86_64-pc-windows-gnu",
+                "-target",
+                "x86_64-pc-windows-gnu",
                 "-g",
                 "${relativeFile}",
                 "-o",
@@ -76,7 +77,8 @@
             "label": "clang++asm",
             "command": "C:\\Compiler\\LLVM\\bin\\clang++.exe",
             "args": [
-                "-target x86_64-pc-windows-gnu",
+                "-target",
+                "x86_64-pc-windows-gnu",
                 "-g",
                 "${relativeFile}",
                 "-o",

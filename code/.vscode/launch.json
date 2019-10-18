@@ -57,6 +57,20 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "(lldb) 启动",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "miDebuggerPath": "C:\\Compiler\\LLVM\\bin\\lldb-mi.exe",
+            "preLaunchTask": "clang++.exe build active file",
         }
     ],
 }

@@ -12,3 +12,4 @@ python/.mypy_cache/*
 code/.vscode/ipch/*
 template/.vscode/ipch/*
 code/tmp.cpp
+code/.vscode/cquery_cached_index/
