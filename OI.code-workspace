@@ -108,7 +108,6 @@
 		"files.defaultLanguage": "cpp",
 		"pascal.formatter.engineParameters": "E:/code/Pascal/.vscode/ptop.cfg",
 		"C_Cpp.clang_format_sortIncludes": true,
-		"editor.formatOnSave": true,
-		"cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/"
+		"editor.formatOnSave": true
 	}
 }
