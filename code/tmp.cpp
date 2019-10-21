@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 300000, M = 300000;
-
 int main() {
-    cout << (&N == &M) << endl;
-    cout << (N == N) << endl;
+    for(int i=1;i<=10;i++)
+        cout<<i<<" \n"[i==10];
+    for(int i=1;i<=10;i++)
+        printf("%d%c",i," \n"[i==10]);
     return 0;
 }

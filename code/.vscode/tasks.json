@@ -46,13 +46,11 @@
             "label": "clang++.exe build active file",
             "command": "C:\\Compiler\\LLVM\\bin\\clang++.exe",
             "args": [
-                "-target",
-                "x86_64-pc-windows-gnu",
-                "-g",
+                // "-target",
+                // "x86_64-pc-windows-gnu",
                 "${relativeFile}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-std=c++98",
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic"
@@ -62,14 +60,21 @@
             },
             "problemMatcher": {
                 "base": "$gcc",
-                "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error|note):\\s+(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                }
+                "pattern": [
+                    {
+                        "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    },
+                    {
+                        "regexp": "^\\s+(.*)$",
+                        "message": 1,
+                        "loop": true
+                    }
+                ]
             }
         },
         {
@@ -77,13 +82,9 @@
             "label": "clang++asm",
             "command": "C:\\Compiler\\LLVM\\bin\\clang++.exe",
             "args": [
-                "-target",
-                "x86_64-pc-windows-gnu",
-                "-g",
                 "${relativeFile}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-std=c++98",
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic",
@@ -92,17 +93,7 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": {
-                "base": "$gcc",
-                "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error|note):\\s+(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                }
-            }
+            "problemMatcher": "$gcc"
         }
     ]
 }
