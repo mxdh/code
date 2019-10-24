@@ -3,7 +3,7 @@
 
 /**
  * @file Bignum.h
- * @author mxdh (a27573@outlook.com)
+ * @author mxdh (a27573@outlook.com).
  * @brief Big number library
  * @version 0.1
  * @date 2019-10-24
