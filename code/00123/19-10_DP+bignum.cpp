@@ -14,12 +14,14 @@
 #ifndef _BIGNUM_H_
 #define _BIGNUM_H_ 1
 
+#include <cstddef>
 #include <vector>
 
-namespace bignum {
+namespace Jel {
 
-template <typename _Base = unsigned short,
-          typename _Sequence = ::std::vector<_Base> >
+typedef unsigned short numBase;
+
+template <typename Sequence = ::std::vector<numBase> >
 class Bignum {
   public:
     Bignum() {}
@@ -31,7 +33,14 @@ class Bignum {
         } while (num);
     }
 
-    Bignum<_Base, _Sequence>& operator=(int num) {
+    size_t size() const { return c.size(); }
+
+    numBase& operator[](int k) { return c[k]; }
+
+    const numBase& operator[](int k) const { return c[k]; }
+
+    template <typename Tp>
+    Bignum<Sequence>& operator=(Tp num) {
         c.clear();
         do {
             c.push_back(num % 10);
@@ -40,11 +49,32 @@ class Bignum {
         return *this;
     }
 
-    Bignum<_Base, _Sequence>& operator+=(const Bignum<_Base, _Sequence>& b) {
-        _Base tmp = 0;
-        for (int i = 0; i < c.size() && i < b.c.size(); ++i) c[i] += b.c[i];
-        for (int i = c.size(); i < b.c.size(); ++i) c.push_back(b.c[i]);
-        for (int i = 0; i < c.size(); ++i) {
+    Bignum<Sequence>& operator+=(const Bignum<Sequence>& b) {
+        size_t sb = b.size();
+        if (sb > size()) c.resize(sb);
+        for (size_t i = 0; i < sb; ++i) c[i] += b[i];
+        format();
+        return *this;
+    }
+
+    Bignum<Sequence>& operator*=(const Bignum<Sequence>& b) {
+        Bignum<Sequence> a = *this;
+        c.clear();
+        size_t sa = a.size(), sb = b.size();
+        c.resize(sa + sb - 2);
+        for (size_t i = 0; i < sa; ++i)
+            for (size_t j = 0; j < sb; ++j) c[i + j] += a[i] * b[j];
+        format();
+        return *this;
+    }
+
+  protected:
+    Sequence c;
+
+    void format() {
+        size_t s = size();
+        numBase t = 0;
+        for (size_t i = 0; i < s; ++i) {
             c[i] += t;
             t = c[i] / 10;
             c[i] %= 10;
@@ -53,41 +83,30 @@ class Bignum {
             c.push_back(t % 10);
             t /= 10;
         }
-        return *this;
     }
-
-    Bignum<_Base, _Sequence>& operator*=(const Bignum<_Base, _Sequence>& b) {
-        Bignum<_Base, _Sequence> a = *this;
-        *this = 0;
-        for (int i = 0; i < a.c.size(); ++i)
-            for (int j = 0; j < b.c.size(); ++j) {
-            }
-        return *this;
-    }
-
-  protected:
-    _Sequence c;
 };
 
-template <typename _Base, typename _Sequence>
-Bignum<_Base, _Sequence> operator+(const Bignum<_Base, _Sequence>& a,
-                                   const Bignum<_Base, _Sequence>& b) {
-    Bignum<_Base, _Sequence> ret = a;
+template <typename Sequence>
+Bignum<Sequence> operator+(const Bignum<Sequence>& a,
+                           const Bignum<Sequence>& b) {
+    Bignum<_Base, Sequence> ret = a;
     ret += b;
     return ret;
 }
 
-template <typename _Base, typename _Sequence>
-Bignum<_Base, _Sequence> operator*(const Bignum<_Base, _Sequence>& a,
-                                   const Bignum<_Base, _Sequence>& b) {
+template <typename Sequence>
+Bignum<Sequence> operator*(const Bignum<Sequence>& a,
+                           const Bignum<Sequence>& b) {
+    Bignum<_Base, Sequence> ret = a;
+    ret *= b;
     return ret;
 }
 
-}  // namespace bignum
+}  // namespace Jel
 
 #endif
 
-using bignum::Bignum;
+using Jel::Bignum;
 using ::std::max;
 
 const int N = 80;
