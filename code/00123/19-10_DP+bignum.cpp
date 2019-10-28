@@ -1,3 +1,4 @@
+//AC O2
 #include <algorithm>
 #include <iostream>
 
@@ -15,6 +16,7 @@
 #define _BIGNUM_H_ 1
 
 #include <cstddef>
+#include <iostream>
 #include <vector>
 
 namespace Jel {
@@ -61,7 +63,7 @@ class Bignum {
         Bignum<Sequence> a = *this;
         c.clear();
         size_t sa = a.size(), sb = b.size();
-        c.resize(sa + sb - 2);
+        c.resize(sa + sb - 1);
         for (size_t i = 0; i < sa; ++i)
             for (size_t j = 0; j < sb; ++j) c[i + j] += a[i] * b[j];
         format();
@@ -87,19 +89,47 @@ class Bignum {
 };
 
 template <typename Sequence>
-Bignum<Sequence> operator+(const Bignum<Sequence>& a,
+inline Bignum<Sequence> operator+(const Bignum<Sequence>& a,
                            const Bignum<Sequence>& b) {
-    Bignum<_Base, Sequence> ret = a;
+    Bignum<Sequence> ret = a;
     ret += b;
     return ret;
 }
 
 template <typename Sequence>
-Bignum<Sequence> operator*(const Bignum<Sequence>& a,
+inline Bignum<Sequence> operator*(const Bignum<Sequence>& a,
                            const Bignum<Sequence>& b) {
-    Bignum<_Base, Sequence> ret = a;
+    Bignum<Sequence> ret = a;
     ret *= b;
     return ret;
+}
+
+template <typename Tp, typename Sequence>
+inline Bignum<Sequence> operator*(const Tp& a, const Bignum<Sequence>& b) {
+    Bignum<Sequence> ret = a;
+    ret *= b;
+    return ret;
+}
+
+template <typename Tp, typename Sequence>
+inline Bignum<Sequence> operator*(const Bignum<Sequence>& a, const Tp& b) {
+    Bignum<Sequence> ret = a;
+    ret *= b;
+    return ret;
+}
+
+template <typename Sequence>
+std::ostream& operator<<(std::ostream& output, const Bignum<Sequence>& b) {
+    for (int i = b.size()-1; i >= 0; --i) output << b[i];
+    return output;
+}
+
+template <typename Sequence>
+bool operator<(const Bignum<Sequence>& a,const Bignum<Sequence>& b) {
+    if (a.size()==b.size())
+        for (int i=a.size()-1;i>=0;--i)
+            if (a[i]!=b[i]) return a[i]<b[i];
+    return a.size()<b.size();
 }
 
 }  // namespace Jel

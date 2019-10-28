@@ -104,7 +104,10 @@
 			"queue": "cpp",
 			"filesystem": "cpp",
 			"xloctime": "cpp",
-			"xutility": "cpp"
+			"xutility": "cpp",
+			"xhash": "cpp",
+			"xstring": "cpp",
+			"xtree": "cpp"
 		},
 		"pascal.codeNavigation": "file",
 		"git.autofetch": true,
