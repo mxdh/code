@@ -114,6 +114,7 @@
 		"files.defaultLanguage": "cpp",
 		"pascal.formatter.engineParameters": "E:/code/Pascal/.vscode/ptop.cfg",
 		"C_Cpp.clang_format_sortIncludes": true,
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, Standard: Cpp03}"
 	}
 }
