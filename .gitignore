@@ -13,3 +13,4 @@ code/.vscode/ipch/*
 template/.vscode/ipch/*
 code/tmp.*
 code/.vscode/cquery_cached_index/
+code/.vscode/GTEMP.pas
