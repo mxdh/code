@@ -1,8 +1,6 @@
-// lantern.cpp : ∂®“Â DLL ”¶”√≥Ã–Úµƒ»Îø⁄µ„°£
+// lantern.cpp : ÂÆö‰πâ DLL Â∫îÁî®Á®ãÂ∫èÁöÑÂÖ•Âè£ÁÇπ„ÄÇ
 
 //
-
-
 
 #include <windows.h>
 
@@ -22,404 +20,321 @@
 
 using namespace std;
 
-
-
 HMODULE hMod;
 
 int *pHmod;
 
-char msg[]="Patched by JuncoJet";
+char msg[] = "Patched by JuncoJet";
 
-char app[]="PATCH";
+char app[] = "PATCH";
 
-char file[]="lantern.ini";
+char file[] = "lantern.ini";
 
 char filepath[MAX_PATH];
 
-char c[]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+char c[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-char *v[]={"3.7.6","4.3.2","4.4.0"};
+char *v[] = {"3.7.6", "4.3.2", "4.4.0"};
 
-enum {IDWIDTH=8,BUFFSIZE=2048,VERSIZE=10,VSIZE=3};
+enum { IDWIDTH = 8, BUFFSIZE = 2048, VERSIZE = 10, VSIZE = 3 };
 
-enum {PNONE=0,PALL=-1,PDEV=2,PUSR=4,PDBG=8,PVER=16};
+enum { PNONE = 0, PALL = -1, PDEV = 2, PUSR = 4, PDBG = 8, PVER = 16 };
 
-typedef struct _LTVER{
+typedef struct _LTVER {
+  DWORD addr;
 
-	DWORD addr;
+  string str;
 
-	string str;
+  string newstr;
 
-	string newstr;
+} LTVER;
 
-}LTVER;
+LTVER ltvv[] = {
 
-LTVER ltvv[]={
+    {0x8B6B30, "", "4.4.2"},
 
-	{0x8B6B30,"","4.4.2"},
+    {0x8B9420, "", "20171222.161751"},
 
-	{0x8B9420,"","20171222.161751"},
-
-	{0x8B9430,"","20171222.161626"},
+    {0x8B9430, "", "20171222.161626"},
 
 };
 
 template <class T>
 
-void dbg(T x){
+void dbg(T x) {
+  stringstream z;
 
-	stringstream z;
+  z << "ul: " << x;
 
-	z<<"ul: "<<x;
-
-	OutputDebugString(z.str().data());
-
+  OutputDebugString(z.str().data());
 }
 
-template <class I,class T>
+template <class I, class T>
 
-void dbg(I x,T y){
+void dbg(I x, T y) {
+  stringstream z;
 
-	stringstream z;
+  z << x << " " << y;
 
-	z<<x<<" "<<y;
-
-	OutputDebugString(z.str().data());
-
+  OutputDebugString(z.str().data());
 }
 
-DWORD  WINAPI ThreadProc(LPVOID lpParam){
+DWORD WINAPI ThreadProc(LPVOID lpParam) {
+  char ver[VERSIZE], nmod[MAX_PATH], *pnmod = nmod;
 
-	char ver[VERSIZE],nmod[MAX_PATH],*pnmod=nmod;
+  int tmod = 1458702212, hmod = 0;
 
-	int tmod=1458702212,hmod=0;
+  GetModuleFileName(hMod, filepath, MAX_PATH);
 
-	GetModuleFileName(hMod,filepath,MAX_PATH);
+  for (int i = strlen(filepath); i > 0; i--) {
+    if (filepath[i] == '\\') {
+      strcpy(nmod, &filepath[i + 1]);
 
-	for(int i=strlen(filepath);i>0;i--){
+      filepath[i + 1] = '\0';
 
-		if(filepath[i]=='\\'){
+      strcat(filepath, file);
 
-			strcpy(nmod,&filepath[i+1]);
+      dbg(nmod);
 
-			filepath[i+1]='\0';
+      break;
+    }
+  }
 
-			strcat(filepath,file);
+  while (*pnmod) hmod = hmod * 33 + *pnmod++;
 
-			dbg(nmod);
+  if (hmod != tmod) return 0;
 
-			break;
+  int enable = GetPrivateProfileInt(app, "ENABLE", 1, filepath);
 
-		}
+  dbg("ul: enable", enable);
 
-	}
+  if (!enable)
 
-	while(*pnmod)
+    return 0;
 
-		hmod=hmod*33+*pnmod++;
+  else if (enable == 1)
 
-	if(hmod!=tmod)
+    enable = -1;
 
-		return 0;
+  GetPrivateProfileString(app, "VERSION", v[VSIZE - 1], ver, VERSIZE, filepath);
 
-	int enable=GetPrivateProfileInt(app,"ENABLE",1,filepath);
+  if (enable & PDBG) dbg("ul: version", ver);
 
-	dbg("ul: enable",enable);
+  if (!strlen(ver)) return 0;  //ÈÖçÁΩÆÊñá‰ª∂‰∏≠Ê≤°ÊúâÁâàÊú¨Âè∑ÈÄÄÂá∫Á∫øÁ®ã
 
-	if(!enable)
+  char *cc = (char *)malloc(BUFFSIZE);
 
-		return 0;
+  int method = GetPrivateProfileInt(app, "METHOD", 3, filepath);
 
-	else if(enable==1)
+  int start = GetPrivateProfileInt(app, "STARTWAIT", 3, filepath);
 
-		enable=-1;
+  int reset = GetPrivateProfileInt(app, "INTERVAL", 480, filepath);
 
-	GetPrivateProfileString(app,"VERSION",v[VSIZE-1],ver,VERSIZE,filepath);
+  GetPrivateProfileString(app, "PATTERN", c, cc, BUFFSIZE, filepath);
 
-	if(enable&PDBG)
+  if (enable & PDBG) {
+    dbg("ul: method", method);
 
-		dbg("ul: version",ver);
+    dbg("ul: start", start);
 
-	if(!strlen(ver))
+    dbg("ul: reset", reset);
 
-		return 0;//≈‰÷√Œƒº˛÷–√ª”–∞Ê±æ∫≈ÕÀ≥ˆœﬂ≥Ã
+    dbg("ul: pattern", cc);
+  }
 
-	char *cc=(char*)malloc(BUFFSIZE);
+  int r = -1;
 
-	int method=GetPrivateProfileInt(app,"METHOD",3,filepath);
+  for (int i = 0; i < VSIZE; i++) {
+    if (!strcmp(v[i], ver)) {
+      r = i;
 
-	int start=GetPrivateProfileInt(app,"STARTWAIT",3,filepath);
+      break;
+    }
+  }
 
-	int reset=GetPrivateProfileInt(app,"INTERVAL",480,filepath);
+  if (enable & PDBG) dbg("ul: ver_r", r);
 
-	GetPrivateProfileString(app,"PATTERN",c,cc,BUFFSIZE,filepath);
+  if (r <= -1) return 0;  //Êâæ‰∏çÂà∞ÈÄÇÂêàÁöÑÁâàÊú¨Âè∑ÈÄÄÂá∫Á∫øÁ®ã
 
-	if(enable&PDBG){
+  if (r == 2 && enable & PVER)
 
-		dbg("ul: method",method);
+    for (int i = 0; i < 3; i++) {
+      char pv[20];
 
-		dbg("ul: start",start);
+      stringstream pvn;
 
-		dbg("ul: reset",reset);
+      pvn << "PV" << i;
 
-		dbg("ul: pattern",cc);
+      GetPrivateProfileString(app, pvn.str().data(), ltvv[i].newstr.data(), pv,
+                              20, filepath);
 
-	}
+      ltvv[i].newstr = pv;
 
-	int r=-1;
+      ltvv[i].addr += (int)hMod;
 
-	for(int i=0;i<VSIZE;i++){
+      ltvv[i].str = (char *)(ltvv[i].addr);
 
-		if(!strcmp(v[i],ver)){
+      if (enable & PDBG) {
+        stringstream inf;
 
-			r=i;
+        inf << "ltvv[" << i << "].str " << ltvv[i].str;
 
-			break;
+        dbg(inf.str().data());
+      }
 
-		}
+      SIZE_T s;
 
-	}
+      WriteProcessMemory((HANDLE)-1, (char *)(ltvv[i].addr),
+                         ltvv[i].newstr.data(), ltvv[i].newstr.size(), &s);
 
-	if(enable&PDBG)
+      if (enable & PDBG) {
+        stringstream inf;
 
-		dbg("ul: ver_r",r);
+        inf << "ul: ltvv[" << i << "].addr";
 
-	if(r<=-1)
+        dbg(inf.str().data(), (void *)ltvv[i].addr);
+      }
+    }
 
-		return 0;//’“≤ªµΩ  ∫œµƒ∞Ê±æ∫≈ÕÀ≥ˆœﬂ≥Ã
+  if (!pHmod) Sleep(1000 * start);
 
-	if(r==2&&enable&PVER)
+  while (1) {
+    switch (r) {
+      case 0:
 
-		for(int i=0;i<3;i++){
+        // version 3.7.6
 
-			char pv[20];
+        pHmod = (int *)((int)hMod + 0x00EAD00C);
 
-			stringstream pvn;
+        pHmod = (int *)(*(int *)(*pHmod + 0x338));
 
-			pvn<<"PV"<<i;
+        break;
 
-			GetPrivateProfileString(app,pvn.str().data(),ltvv[i].newstr.data(),pv,20,filepath);
+      case 1:
 
-			ltvv[i].newstr=pv;
+        // version 4.3.2
 
-			ltvv[i].addr+=(int)hMod;
+        pHmod = (int *)((int)hMod + 0x00F9E6E8);
 
-			ltvv[i].str=(char*)(ltvv[i].addr);
+        pHmod = (int *)(*(int *)(*pHmod + 0x240));
 
-			if(enable&PDBG){
+        break;
 
-				stringstream inf;
+      case 2:
 
-				inf<<"ltvv["<<i<<"].str "<<ltvv[i].str;
+        // version 4.4.0
 
-				dbg(inf.str().data());
+        pHmod = (int *)((int)hMod + 0x00FB46C4);
 
-			}
+        pHmod = (int *)(*(int *)(*pHmod + 0x240));
 
-			SIZE_T s;
+        if (enable & PDBG) {
+          dbg("ul: pHomd", (void *)pHmod);
 
-			WriteProcessMemory((HANDLE)-1,(char*)(ltvv[i].addr),ltvv[i].newstr.data(),ltvv[i].newstr.size(),&s);
+          if (enable & PUSR) dbg("ul: USRID", pHmod[2]);
+        }
 
-			if(enable&PDBG){
+        if (enable & PUSR) pHmod[2]++;
 
-				stringstream inf;
+        break;
+    }
 
-				inf<<"ul: ltvv["<<i<<"].addr";
+    if (enable & PDBG && r != 2) {
+      dbg("ul: pHmod", (void *)pHmod);
+    }
 
-				dbg(inf.str().data(),(void*)ltvv[i].addr);
+    char *pChar = (char *)pHmod;  //ÈÄöÁî®ÊåáÈíà
 
-			}
+    if (enable & PDEV) {
+      if (enable & PDBG) {
+        char x[10];
 
-		}
+        memcpy(x, pChar, IDWIDTH);
 
-	if(!pHmod)
+        x[IDWIDTH] = '\0';
 
-		Sleep(1000*start);
+        dbg("ul: DEVID", x);
+      }
 
-	while(1){
+      switch (method) {
+        case 0:
 
-		switch(r){
+        case 3:
 
-			case 0:
+          srand(GetTickCount());
 
-				//version 3.7.6
+          for (int i = 0; i < IDWIDTH; i++) {
+            pChar[i] = cc[rand() % strlen(cc)];
+          }
 
-				pHmod=(int*)((int)hMod+0x00EAD00C);
+          break;
 
-				pHmod=(int*)(*(int*)(*pHmod+0x338));
+        case 4:
 
-				break;
+          srand(GetTickCount());
 
-			case 1:
+          for (int i = 0; i < IDWIDTH; i++) {
+            pChar[i] = rand() % 255 + 1;
+          }
 
-				//version 4.3.2
+          break;
 
-				pHmod=(int*)((int)hMod+0x00F9E6E8);
+        case 5:
 
-				pHmod=(int*)(*(int*)(*pHmod+0x240));
+          srand(GetTickCount());
 
-				break;
+          ((uint64_t *)pHmod)[0] = rand() % -1;
 
-			case 2:
+          for (int i = 0; i < IDWIDTH; i++) {
+            if (!pChar[i]) pChar[i]++;
+          }
 
-				//version 4.4.0
+          break;
 
-				pHmod=(int*)((int)hMod+0x00FB46C4);
+        case 2:
 
-				pHmod=(int*)(*(int*)(*pHmod+0x240));
+          ((uint64_t *)pHmod)[0] += GetTickCount();
 
-				if(enable&PDBG){
+          for (int i = 0; i < IDWIDTH; i++) {
+            if (!pChar[i]) pChar[i]++;
+          }
 
-					dbg("ul: pHomd",(void*)pHmod);
+          break;
 
-					if(enable&PUSR)
+        case 1:
 
-						dbg("ul: USRID",pHmod[2]);
+          ((uint64_t *)pHmod)[0]++;
 
-				}
+          for (int i = 0; i < IDWIDTH; i++) {
+            if (!pChar[i]) pChar[i]++;
+          }
 
-				if(enable&PUSR)
+          break;
+      }
+    }
 
-					pHmod[2]++;
+    Sleep(1000 * reset);
+  }
 
-				break;
-
-		}
-
-		if(enable&PDBG&&r!=2){
-
-			dbg("ul: pHmod",(void*)pHmod);
-
-		}
-
-		char *pChar=(char*)pHmod;//Õ®”√÷∏’Î
-
-		if(enable&PDEV){
-
-			if(enable&PDBG){
-
-				char x[10];
-
-				memcpy(x,pChar,IDWIDTH);
-
-				x[IDWIDTH]='\0';
-
-				dbg("ul: DEVID",x);
-
-			}
-
-			switch(method){
-
-				case 0:
-
-				case 3:
-
-					srand(GetTickCount());
-
-					for(int i=0;i<IDWIDTH;i++){
-
-						pChar[i]=cc[rand()%strlen(cc)];
-
-					}
-
-					break;
-
-				case 4:
-
-					srand(GetTickCount());
-
-					for(int i=0;i<IDWIDTH;i++){
-
-						pChar[i]=rand()%255+1;
-
-					}
-
-					break;
-
-				case 5:
-
-					srand(GetTickCount());
-
-					((uint64_t*)pHmod)[0]=rand()%-1;
-
-					for(int i=0;i<IDWIDTH;i++){
-
-						if(!pChar[i])
-
-							pChar[i]++;
-
-					}
-
-					break;
-
-				case 2:
-
-					((uint64_t*)pHmod)[0]+=GetTickCount();
-
-					for(int i=0;i<IDWIDTH;i++){
-
-						if(!pChar[i])
-
-							pChar[i]++;
-
-					}
-
-					break;
-
-				case 1:
-
-					((uint64_t*)pHmod)[0]++;
-
-					for(int i=0;i<IDWIDTH;i++){
-
-						if(!pChar[i])
-
-							pChar[i]++;
-
-					}
-
-					break;
-
-			}
-
-		}
-
-		Sleep(1000*reset);
-
-	}
-
-	return 0;
-
+  return 0;
 }
 
+BOOL APIENTRY DllMain(HMODULE hModule,
 
+                      DWORD ul_reason_for_call,
 
-BOOL APIENTRY DllMain( HMODULE hModule,
+                      LPVOID lpReserved
 
-                       DWORD  ul_reason_for_call,
-
-                       LPVOID lpReserved
-
-					 )
+)
 
 {
+  if (ul_reason_for_call == DLL_PROCESS_ATTACH) {
+    hMod = GetModuleHandle(NULL);
 
-	if(ul_reason_for_call==DLL_PROCESS_ATTACH){
+    CreateThread(NULL, 0, ThreadProc, NULL, 0, NULL);
+  }
 
-		hMod=GetModuleHandle(NULL);
-
-		CreateThread(NULL,0,ThreadProc,NULL,0,NULL);  
-
-	}
-
-    return TRUE;
-
+  return TRUE;
 }
 
-
-
-void patch(){
-
-	MessageBox(0,msg,msg,0);
-
-}
+void patch() { MessageBox(0, msg, msg, 0); }
