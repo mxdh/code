@@ -1,7 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "code"
+			"path": "CPP",
+			"name": "C++"
 		}
 	],
 	"settings": {

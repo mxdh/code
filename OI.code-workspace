@@ -1,8 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "code",
-			"name": "Code"
+			"path": "CPP",
+			"name": "C++"
 		},
 		{
 			"path": "Pascal"

@@ -5,54 +5,54 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(Windows) Launch",
+            "name": "运行",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "cmd",
             "args": [
                 "/c",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${fileBasenameNoExtension}.exe",
                 "&echo.",
                 "&pause"
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": true
         },
         {
-            "name": "(Windows)(g++) Build&Launch",
+            "name": "MinGW8.2.0 编译并运行",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "cmd",
             "args": [
                 "/c",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${fileBasenameNoExtension}.exe",
                 "&echo.",
                 "&pause"
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": true,
-            "preLaunchTask": "g++.exe build active file"
+            "preLaunchTask": "MinGW 编译(发布)"
         },
         {
-            "name": "(gdb)(g++) Launch",
+            "name": "MinGW8.2.0 编译并调试",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${fileBasenameNoExtension}.exe",
             "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "stopAtEntry": true,
+            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\Compiler\\mingw64\\bin\\gdb.exe",
-            "preLaunchTask": "g++.exe build active file",
+            "miDebuggerPath": "C:/Compiler/mingw/bin/gdb.exe",
+            "preLaunchTask": "MinGW 编译(调试)",
             "setupCommands": [
                 {
-                    "description": "Enable pretty-printing for gdb",
+                    "description": "为 gdb 启用整齐打印",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }

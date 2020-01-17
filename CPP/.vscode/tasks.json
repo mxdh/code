@@ -3,18 +3,19 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "g++.exe build active file",
-            "command": "C:\\Compiler\\MinGW64\\bin\\g++.exe",
+            "label": "MinGW 编译(调试)",
+            "windows": {
+                "command": "C:/Compiler/MinGW/bin/g++.exe"
+            },
             "args": [
-                "-g",
                 "${relativeFile}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-std=c++98",
+                "${fileDirname}/${fileBasenameNoExtension}.exe",
+                "-g",
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic",
-                "'-Wl,--stack=123456789'"
+                "-Wl,--stack=123456789"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -23,18 +24,18 @@
         },
         {
             "type": "shell",
-            "label": "g++asm",
-            "command": "C:\\Compiler\\MinGW64\\bin\\g++.exe",
+            "label": "MinGW 编译(发布)",
+            "windows": {
+                "command": "C:/Compiler/MinGW/bin/g++.exe"
+            },
             "args": [
-                "-g",
                 "${relativeFile}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.S",
-                "-std=c++98",
+                "${fileDirname}/${fileBasenameNoExtension}.exe",
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic",
-                "-S"
+                "-Wl,--stack=123456789"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -43,14 +44,15 @@
         },
         {
             "type": "shell",
-            "label": "clang++.exe build active file",
-            "command": "C:\\Compiler\\LLVM\\bin\\clang++.exe",
+            "label": "Clang 编译(调试)",
+            "windows": {
+                "command": "C:/Compiler/LLVM/bin/clang++.exe"
+            },
             "args": [
-                // "-target",
-                // "x86_64-pc-windows-gnu",
                 "${relativeFile}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${fileDirname}/${fileBasenameNoExtension}.exe",
+                "-g",
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic"
@@ -76,24 +78,6 @@
                     }
                 ]
             }
-        },
-        {
-            "type": "shell",
-            "label": "clang++asm",
-            "command": "C:\\Compiler\\LLVM\\bin\\clang++.exe",
-            "args": [
-                "${relativeFile}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-Wall",
-                "-Wextra",
-                "-Wpedantic",
-                "-S"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": "$gcc"
         }
     ]
 }
