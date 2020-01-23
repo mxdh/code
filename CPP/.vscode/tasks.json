@@ -3,6 +3,7 @@
     "tasks": [
         {
             "type": "shell",
+            "group": "build",
             "label": "MinGW 编译(调试)",
             "windows": {
                 "command": "C:/Compiler/MinGW/bin/g++.exe"
@@ -24,14 +25,18 @@
         },
         {
             "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "label": "MinGW 编译(发布)",
             "windows": {
-                "command": "C:/Compiler/MinGW/bin/g++.exe"
+                "command": "C:\\Compiler\\MinGW\\bin\\g++.exe"
             },
             "args": [
                 "${relativeFile}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.exe",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic",
@@ -44,6 +49,7 @@
         },
         {
             "type": "shell",
+            "group": "build",
             "label": "Clang 编译(调试)",
             "windows": {
                 "command": "C:/Compiler/LLVM/bin/clang++.exe"
