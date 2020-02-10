@@ -14,3 +14,7 @@ template/.vscode/ipch/*
 code/tmp.*
 code/.vscode/cquery_cached_index/
 code/.vscode/GTEMP.pas
+Pascal/GLIST
+Pascal/GPATH
+Pascal/GRTAGS
+Pascal/GTAGS
